@@ -183,26 +183,34 @@ while [[ "$#" -gt 0 ]]; do
       echo -e "ERROR: Unrecognized installation option '$1'."
       echo -e "Try '$0 --help' for more information."
       exit 1
-      ;;
-  esac
+     ;;
+ esac
 done
-
-echo -e "Installing '${THEME_NAME} kde themes'..."
+ echo -e "Installing '${THEME_NAME} kde templates'..."
 
 for color in "${colors[@]:-${COLOR_VARIANTS[@]}}"; do
   install "${name:-${THEME_NAME}}" "${color}"
 done
-
-for pcolor in "${pcolors[@]:-${PCOLOR_VARIANTS[@]}}"; do
-  install_plasma "${name:-${THEME_NAME}}" "${pcolor}"
-done
-
-for color in "${colors[@]:-${COLOR_VARIANTS[@]}}"; do
-  for window in "${windows[@]:-${WINDOW_VARIANTS[0]}}"; do
-    for scale in "${scales[@]:-${SCALE_VARIANTS[@]}}"; do
-      install_aurorae "${name:-${THEME_NAME}}" "${color}" "${window}" "${scale}"
+  for pcolor in "${pcolors[@]:-${PCOLOR_VARIANTS[@]}}"; do
+    install_plasma "${name:-${THEME_NAME}}" "${pcolor}"
+  done
+  # Install Liquid theme plasma themes
+  for pcolor in "" "-dark"; do
+    install_plasma "WhiteSurLiquid" "${pcolor}"
+  done
+  # Install Liquid theme aurorae themes
+  for color in "" "-dark"; do
+    for window in "${windows[@]:-${WINDOW_VARIANTS[0]}}"; do
+      for scale in "${scales[@]:-${SCALE_VARIANTS[@]}}"; do
+        install_aurorae "WhiteSurLiquid" "${color}" "${window}" "${scale}"
+      done
     done
   done
-done
-
+  for color in "${colors[@]:-${COLOR_VARIANTS[@]}}"; do
+    for window in "${windows[@]:-${WINDOW_VARIANTS[0]}}"; do
+      for scale in "${scales[@]:-${SCALE_VARIANTS[@]}}"; do
+        install_aurorae "${name:-${THEME_NAME}}" "${color}" "${window}" "${scale}"
+      done
+    done
+  done
 echo -e "Install finished..."
