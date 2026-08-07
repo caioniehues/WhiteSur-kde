@@ -56,3 +56,4 @@ GNU GPL v3
 ![dark](preview-dark.png)
 
 
+- WhiteSurLiquid: A variant with glass‑like translucency inspired by macOS Liquid Glass (2026).
